@@ -405,7 +405,7 @@ Dr.&nbsp;Mine Dogucu
 
 <p>class: middle</p>
 
-<img data-src="img/prob-likelihood.jpeg" class="r-stretch quarto-figure-center"></section>
+<img data-src="img/prob-likelihood.jpeg" width="250" class="r-stretch quarto-figure-center"></section>
 <section id="section" class="slide level2">
 <h2></h2>
 
@@ -635,16 +635,16 @@ Dr.&nbsp;Mine Dogucu
 <li class="fragment"><p>Check whether the second derivative of the likelihood is negative.</p></li>
 </ol>
 </section>
-<section id="step-2-find-ln-l" class="slide level2">
-<h2>Step 2: Find ln L()</h2>
-<p><span class="math inline">\(\ell(\pi = \ln L(\pi) = \ln[\pi^{\sum_{i=1}^nx_i}(1-\pi)^{\sum_{i=1}^n1-x_i}]\)</span></p>
+<section id="step-2-find-ln-lpi" class="slide level2">
+<h2>Step 2: Find ln L(<span class="math inline">\(\pi\)</span>)</h2>
+<p><span class="math inline">\(\ell(\pi) = \ln L(\pi) = \ln[\pi^{\sum_{i=1}^nx_i}(1-\pi)^{\sum_{i=1}^n1-x_i}]\)</span></p>
 <div class="fragment">
-<p><span class="math inline">\(\ell(\pi)= {\sum_{i=1}^nx_i}\ln(\pi) + n-{\sum_{i=1}^nx_i}\ln(1-\pi)\)</span></p>
+<p><span class="math inline">\(\ell(\pi)= ({\sum_{i=1}^nx_i})\ln(\pi) + (n-{\sum_{i=1}^nx_i})\ln(1-\pi)\)</span></p>
 </div>
 </section>
-<section id="step-3-take-the-first-derivative-with-respect-p" class="slide level2">
-<h2>Step 3: Take the first derivative with respect <span class="math inline">\(p\)</span></h2>
-<p><span class="math inline">\(\frac{d}{d\pi}\ell(\pi) = \frac{d}{d\pi}[{\sum_{i=1}^nx_i}\ln(\pi) + n-{\sum_{i=1}^nx_i}\ln(1-\pi)]\)</span></p>
+<section id="step-3-take-the-first-derivative-with-respect-pi" class="slide level2">
+<h2>Step 3: Take the first derivative with respect <span class="math inline">\(\pi\)</span></h2>
+<p><span class="math inline">\(\frac{d}{d\pi}\ell(\pi) = \frac{d}{d\pi}[({\sum_{i=1}^nx_i})\ln(\pi) + (n-{\sum_{i=1}^nx_i})\ln(1-\pi)]\)</span></p>
 <div class="fragment">
 <p><span class="math inline">\(\frac{d}{d\pi}\ell(\pi) = \frac{\sum_{i=1}^nx_i}{\pi} + \frac{n-{\sum_{i=1}^nx_i}}{1-\pi} (-1)\)</span></p>
 </div>
@@ -670,12 +670,15 @@ Dr.&nbsp;Mine Dogucu
 </div>
 <div class="fragment">
 <p><span class="math inline">\(\sum_{i=1}^nx_i \geq 0\)</span></p>
-<p>. . . and <span class="math inline">\(n-\sum_{i=1}^nx_i \geq 0\)</span></p>
-<p>. . . and <span class="math inline">\(n \geq\sum_{i=1}^nx_i\)</span></p>
 </div>
 <div class="fragment">
-<p><span class="math inline">\(\pi^2 &gt;0\)</span></p>
-<p>. . . and <span class="math inline">\((1-\pi)^2 &gt; 0\)</span></p>
+<p>and <span class="math inline">\(n-\sum_{i=1}^nx_i \geq 0\)</span></p>
+</div>
+<div class="fragment">
+<p>and <span class="math inline">\(n \geq\sum_{i=1}^nx_i\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(\pi^2 &gt;0\)</span> and <span class="math inline">\((1-\pi)^2 &gt; 0\)</span></p>
 </div>
 <div class="fragment">
 <p><span class="math inline">\(-\frac{\sum_{i=1}^nx_i}{\pi^2} - \frac{n-{\sum_{i=1}^nx_i}}{(1-\pi)^2} &lt;0\)</span> <svg aria-hidden="true" role="img" viewbox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#e56646;overflow:visible;position:relative;"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg></p>

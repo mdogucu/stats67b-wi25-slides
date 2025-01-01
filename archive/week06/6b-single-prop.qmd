@@ -806,3 +806,16 @@ We conclude that the population proportion of Americans who approve allowing DAC
 2. Identify Sampling Distribution of $H_0$  
 3. Calculate p-value  
 4. Make a Decision and a Conclusion.
+
+## Additional Exercises 
+
+From the Open Intro Book Exercises
+
+- 6.2
+- 6.4 
+- 6.6
+- 6.8
+- 6.10 
+- 6.12
+- 6.14
+

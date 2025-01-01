@@ -474,4 +474,7 @@ ppois(q = 2, lambda = 12)
 ```
 
 
+## Learning Tip of the Day
+
+[Reappraising test anxiety increases academic performance of first-year college students](https://psycnet.apa.org/record/2017-57283-001)
 

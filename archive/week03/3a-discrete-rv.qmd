@@ -184,7 +184,7 @@ $P(X = 2) =f(2)=\frac{3}{8} = 0.375$
 </table>
 
 
-$P(X \leq 2) =F(2)=\frac{7}{8} = 0.875$
+$P(X \leq 2) =F(2)= f(0) + f(1) + f(2) = \frac{7}{8} = 0.875$
 
 
 ## Cumulative Distribution Function
@@ -432,3 +432,6 @@ $Var(aX +bY) = a^2\cdot Var(X) + b^2 \cdot Var(Y)$
 
 
 
+## Learning Tip of the Day
+
+[Exercise Improves Academic Performance](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3033774)

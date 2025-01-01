@@ -318,7 +318,7 @@ knitr::include_graphics("img/quarto.006.png")
 
 ## Slides for this course
 
-Slides that you are currently looking at are also written in Quarto. You can take a look at them on [GitHub repo](https://github.com/mdogucu/stats67-fa24-slides) for the course website.
+Slides that you are currently looking at are also written in Quarto. You can take a look at them on [GitHub repo](https://github.com/mdogucu/stats67b-wi25-slides) for the course website.
 
 ##
 
@@ -329,6 +329,13 @@ Some of the code in these files may or may not make sense as it might be beyond 
 As you learn more about R, you'll sometimes have to start coding from scratch without any starter help.
 You should download these files and render them and use them to take notes.
 :::
+
+## File naming
+
+`1a` Week 1 lecture on Tuesday  
+`1b` Week 1 lecture on Thursday  
+`1d` Week 1 discussion  
+`1h` Week 1 homework 
 
 
 # Getting to Know Data

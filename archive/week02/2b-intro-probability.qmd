@@ -352,3 +352,8 @@ $P(B\cup C) = \frac{860}{1050} + \frac{450}{1050} -\frac{375}{1050} = \frac{935}
 . . .
 
 $P(B\cup C) = \frac{375}{1050} + \frac{75}{1050} +\frac{485}{1050} = \frac{935}{1050}$
+
+# Learning Tip of The Day
+
+[Cell phone usage and academic performance: An experiment](https://www.sciencedirect.com/science/article/abs/pii/S0360131517302324)
+

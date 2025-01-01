@@ -691,3 +691,6 @@ Later on we will also learn
 |-----------------------|-----------------------|-----------------------    |
 | $\beta_1$             | Numeric               | Categorical and/or Numeric|
 
+## Learning Tip of the Day
+
+[Why does peer instruction benefit student learning?](https://link.springer.com/article/10.1186/s41235-020-00218-5)
