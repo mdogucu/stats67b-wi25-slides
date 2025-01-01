@@ -1,0 +1,693 @@
+---
+title: "Sampling and Study Design"
+author: "Dr. Mine Dogucu"
+execute:
+  echo: true
+format: 
+  revealjs:
+    footer: "[stats4cs.com](https://stats4cs.com)"
+    slide-number: true
+    incremental: true
+    theme: ["../templates/slide-style.scss"]
+    logo: "https://www.stats4cs.com/img/logo.png"
+    title-slide-attributes: 
+      data-background-image: "https://www.stats4cs.com/img/logo.png"
+      data-background-size: 5%
+      data-background-position: 50% 85%
+    include-after-body: "../templates/clean_title_page.html"
+---
+
+```{r echo = FALSE, message = FALSE}
+library(tidyverse)
+library(gridExtra)
+options(scipen = 999)
+```
+
+# Sampling
+
+## Research question
+
+Every research project aims to answer a research question (or multiple questions).
+
+::: {.callout-tip icon=false}
+## Example
+Do UCI students who exercise regularly have higher GPA?
+::: 
+
+We will use this research question throughout the examples in the lecture.
+
+## Population
+
+Each research question aims to examine a __population__. 
+
+::: {.callout-tip icon=false}
+## Example
+
+Population for this research question is UCI students.
+
+:::
+
+## Data Collection
+
+Data are collected to answer research questions. 
+There are different methods to collect data.
+For instance, data can be collected 
+
+- in-person or online (if collecting from human subjects)
+- on-site or off-site (e.g. rain fall measures vs. moon image tracking)
+- with different tools such as surveys, motion sensors (e.g. marathon finish lines) 
+
+## Data Collection - Ethics
+
+When collecting data from human and animal research subjects we need to consider ethics. 
+
+In universities, rights of the human and animal research subjects are protected by the Institutional Review Board (IRB) of each university. 
+If interested (highly recommended) you can read about UCI's [Institutional Review Board](https://research.uci.edu/compliance/human-research-protections/index.html))
+
+##
+
+::: {.callout-tip icon=false}
+## Example
+
+Consider that we design a survey with the following questions to study the research question.
+
+- Do you exercise at least once every week?
+
+- What is your GPA?
+
+:::
+
+## Sampling
+
+A population is a collection of elements which the research question aims to study. 
+However it is often costly and sometimes impossible to study the whole population. 
+Often a subset of the population is selected to be studied. Sample is the the subset of the population that is studied. 
+The goal is to have a sample that is __representative__ of the population so that the findings of the study can generalize to the population.
+
+. . .
+
+::: {.callout-tip icon=false}
+
+## Example
+
+Since it would be almost impossible to give the survey to ALL UCI students, we can give it to a sample of students.
+
+:::
+
+
+There are different sampling methods to consider.
+
+## Convenience (Availability) Sampling
+
+Convenience sampling occurs when a specific sample is selected because the sample is easy to access.
+
+::: {.callout-tip icon=false}
+
+## Example
+
+- Stand in front of Langson Library
+- Give the survey to 100 UCI students
+
+:::
+
+. . .
+
+This could introduce (sampling) __bias__ and the findings may not generalize to the population. It is possible that those in front of the library
+
+- may study more and thus may have higher GPA.
+- may be more active than those who study at home/dorm.
+
+## 
+
+::: {.callout-tip icon=false}
+
+## Additional Example
+
+A scientist is interested in counting the number of different species of bacteria in San Diego Creek. She takes a bucket of water from San Diego Creek where she happens to be standing and counts the different specifies of bacteria. The bacteria in the bucket make up the __sample__ and the bacteria in San Diego Creek make up the __population__. The scientist is using the convenience sampling method.
+
+:::
+
+## Simple Random Sample
+
+When simple random sampling technique is used any element of the population has an equal chance of being selected to the sample. 
+
+::: {.callout-tip icon=false}
+
+## Example
+
+The researcher can    
+
+- reach out to the registrar to get student emails;  
+- randomly select 100 students; 
+- email them the survey.
+
+:::
+
+## 
+
+Assume that the 100 selected students respond.
+
+**Population**: All UCI students  
+**Sample**: 100 students who have responded
+
+
+## Simple Random Sampling in R
+
+```{r}
+sample(1:100, 3, replace = FALSE) # <1>
+```
+
+1. This allows us to sample 3 numbers from 1 to 100 without replacement, meaning a number can only be selected once.
+
+. . . 
+
+
+To generalize:
+
+```{r}
+#| eval: false
+sample(x = 1:N, size = n, replace = FALSE)
+```
+
+This code will take a random sample of size $n$ from the population consisting of the numbers in the interval $[1, N]$
+
+. . .
+
+Side note: This is not truly random but that's beyond the scope of this class. Here is a [fun (short) reading](https://engineering.mit.edu/engage/ask-an-engineer/can-a-computer-generate-a-truly-random-number/) about it. Philosophers also discuss if [true randomness exists or not](https://philosophy.stackexchange.com/questions/29364/does-true-randomness-actually-exist). 
+
+
+## Non-response Bias
+
+Even when simple random sampling is used, if participants are unwilling to participate in studies then the results can have **nonresponse bias**.
+
+::: {.callout-tip icon=false}
+
+## Example
+
+It is unlikely that 100 students will respond. Assume that 86 respond. 
+
+It is possible that those 14 who did not respond
+
+- may be busy exercising and did not have the time to respond.
+- may be busy studying and did not have the time to respond. 
+
+:::
+
+
+##
+
+::: {.callout-tip icon=false}
+## Additional Example
+
+A social media company shows a survey to some its users on the timeline. Many users ignore the survey and do not take it. There is a high non-response rate and thus the results cannot be generalized to the population.
+
+:::
+
+## Quiz Question
+
+## Cluster Sampling 
+
+In cluster sampling the population is divided into group (i.e, clusters). The sample consists of elements in randomly selected clusters. 
+
+. . .
+
+::: {.callout-tip icon=false}
+
+## Example
+
+The researchers may get a list of classes taught at UCI. They randomly select 10 classes. All the students in those 10 classes will be in the sample.
+
+:::
+
+## Stratified Sampling 
+
+In stratified sampling the population is first divided into groups (i.e., stratas) and then the sample is selected randomly within each strata.
+
+. . .
+
+::: {.callout-tip icon=false}
+
+## Example
+
+The researchers suspect that exercising patterns might be different across different class years. Thus they want to make sure that the sample includes first-years, sophomores, juniors, and seniors. They get a list of students with class year information from the registrar. They then randomly select 25 students who are first years, 25 sophomores, 25 juniors, and 25 seniors.
+
+:::
+
+# Study Design
+
+## Anecdotal Evidence
+
+Anecdotal evidence is an observation that is not systematic and haphazard. 
+
+. . .
+
+::: {.callout-tip icon=false}
+
+## Example
+
+We might meet a junior student who got 100 points in all UCI exams, homework assignments, and quizzes that they have taken and they say that they exercise regularly. Even though the data are factually correct (i.e., high GPA and regular exercise routine.) this does not
+
+:::
+
+. . .
+
+Anecdotal evidence is not a scientific method to answer research questions. We need rigorously designed studies to make generalizations and/or to establish causal relationships.
+
+## Observational Study
+
+In observational studies, researchers study the research question without exposing the cases (or subset of a sample) to any treatment or intervention. In observational studies causal relationships between variables cannot be established.
+
+
+::: {.callout-tip icon=false}
+
+## Example
+
+Based on the survey, even if we observe that UCI students who exercise regularly have higher GPA, we cannot conclude that exercising regularly increases GPA.
+
+:::
+
+
+## Relationship between two variables
+
+If two variables are related to each other in some way we would call them __associated__.
+
+If two variables are not related to each other in any way we would call them __independent__.
+
+
+
+## Relationship between two variables
+
+When we examine the relationship between two variables, we often want to know if the relationship between them is causal. In other words, does one variable cause the other? For instance, is exercising the reason for higher GPA? We don't know!
+
+When we suspect that two variables have a causal relationship we can say
+
+The __explanatory variable__ (e.g. exercising) might causally affect the __response variable__ (e.g. GPA).
+
+. . .
+
+Relationship between two variables does not imply one causes the other. 
+
+## Relationship between two variables
+
+Explanatory variables are denoted by $x$ and the response variable is denoted by $y$. You can remember this from e**X**planatory variable is $x$. Exercising may e**X**plain high GPA. 
+
+##
+
+
+```{r echo = FALSE, fig.align='center', out.width='50%'}
+knitr::include_graphics("img/confounding.png")
+```
+
+A __confounding variable__ (e.g. time management skills) has a correlation with the the explanatory and the response variable.
+
+
+## Experiment Design
+
+In __experiments__, researchers assign cases to treatments/interventions.
+
+. . .
+
+In __randomized experiments__, researchers randomly assign cases  to treatments/interventions. In order to establish causal link between variables, we need randomized experiments. 
+
+##
+
+::: {.callout-tip icon=false}
+
+## Example 
+
+~~Do UCI students who exercise regularly have higher GPA?~~
+
+Does exercising regularly increase GPA for UCI students?
+
+
+
+```{r echo=FALSE, out.width='70%', fig.align='center'}
+knitr::include_graphics('img/experiment.png')
+```
+
+Image Copyright Derenik Haghverdian. Used with permission
+
+:::
+
+
+##
+
+::: {.callout-tip icon=false}
+
+## Note
+
+Random sampling and random assignment (i.e., random allocation) serve different purposes. 
+
+:::{.nonincremental}
+
+::::{.columns}
+
+:::{.column width="50%"}
+
+
+
+### Random sampling
+
+- method of choosing sample from the population
+
+- the goal is to establish generalizability
+
+
+:::
+
+:::{.column width="50%"}
+
+### Random allocation
+
+- method of assigning the sample to different treatment groups
+
+- the goal is to establish causality.
+:::
+
+::::
+
+:::
+
+:::
+
+## Blocking
+
+A doctor has developed a drug called drug `i.d.s.` to treat some disease. She wants to know if patients who take drug `i.d.s.` is free of the disease for at least a year.
+
+. . .
+
+The doctor suspects that the drug may affect adults and kids differently.
+
+. . .
+
+If researchers suspect that the an additional variable that may influence the response variable then they may use __blocks__.
+
+
+
+## Blocking
+
+
+```{r}
+#| echo: false
+#| out-width: 80%
+#| fig-align: center
+knitr::include_graphics('img/blocking.png')
+```
+
+Image Copyright Federica Ricci. Used with permission.
+
+
+## A/B testing 
+
+- A/B testing is a randomized experiment that compares two versions (A and B) of a single variable. 
+
+- It is commonly used on measuring online activities such as revenue per user, click through rates for online ads, number of returning users.
+
+. . .
+
+```{r echo = FALSE, fig.align='center', out.width='50%'}
+knitr::include_graphics("img/ab_testing.png")
+```
+
+## More Vocabulary about Experiments
+
+A __placebo__ is a fake treatment. If a patient shows an improvement by taking a placebo then this is called a __placebo effect__.
+
+. . .
+
+In __blind__ studies, patients do not know what treatment they receive. In __double blind__ studies patients who receive and the doctors who provide the treatment do not know the type of the treatment. 
+
+# Simpson's Paradox
+
+## Simpson's Paradox - UC Berkeley Admissions, 1973
+
+```{r echo = FALSE, fig.height=5, fig.align='center', message = FALSE}
+ucb <- data.frame(UCBAdmissions)
+
+gender <-
+  group_by(ucb, Gender) %>%
+  summarize(Total = sum(Freq))
+
+
+gender_admit <-
+  group_by(ucb, Admit, Gender) %>%
+  summarize(Freq = sum(Freq)) %>%
+  inner_join(gender) %>%
+  mutate(Prop = Freq/Total)
+
+
+
+gender_admit %>% 
+  ggplot(aes(x = Gender, y = Prop, fill = Admit)) +
+  geom_bar(stat = "identity") +
+  theme(text = element_text(size=30)) +
+  labs(title = "Admit Rate by Gender")
+
+
+```
+
+
+
+## Simpson's Paradox - UC Berkeley Admissions, 1973
+
+```{r echo = FALSE, fig.height=5, fig.align='center', message = FALSE}
+
+dept <-
+  group_by(ucb, Dept) %>%
+  summarize(Total = sum(Freq))
+
+
+dept_admit <-
+  group_by(ucb, Admit, Dept) %>%
+  summarize(Freq = sum(Freq)) %>%
+  inner_join(dept) %>%
+  mutate(Prop = Freq/Total)
+
+
+
+ggplot(dept_admit, aes(x = Dept, 
+                         y = Prop, fill = Admit)) +
+  geom_bar(stat = "identity")   +
+  theme(text = element_text(size=30)) +
+  labs(title = "Admit Rate by Dept")
+
+
+```
+
+
+
+## Simpson's Paradox - UC Berkeley Admissions, 1973
+
+```{r echo = FALSE, fig.height=5, fig.align='center', message = FALSE}
+
+gender_dept <-
+  group_by(ucb, Gender, Dept) %>%
+  summarize(Freq = sum(Freq)) %>%
+  inner_join(dept) %>%
+  mutate(Prop=Freq/Total)
+
+ggplot(gender_dept, aes(x = Dept, y = Prop, 
+                        fill = Gender)) +
+  geom_bar(stat = "identity") +
+  theme(text = element_text(size=15)) +
+  labs(title = "App Rate based on Gender for each Dept")
+  
+```
+
+
+
+
+## Simpson's Paradox 
+
+If we observe a certain trend between two variables and this effect disappears or reverses when a third variable is introduced then this phenomenon Simpson's paradox. 
+
+More examples on [Wikipedia](https://en.wikipedia.org/wiki/Simpson%27s_paradox)
+
+
+
+## Moral of the Story
+
+We need to move beyond thinking about the relationship between just two variables. We need to keep asking if there are/could be any **confounding** variables.
+
+# Writing Research Questions Using Notation
+
+##
+
+::: {.font75}
+
+If there was no variance there would be no need for statistics.
+
+:::
+
+## What if?
+
+- We want to understand average number of sleep Irvine residents get.  What if everyone in Irvine slept 8 hours every night? (`sleep` = {8, 8,..., 8})
+
+
+
+- We want to predict who will graduate college. What if everyone graduated college? (`graduate` = {TRUE, TRUE,..., TRUE})
+
+##
+
+- We want to understand if Android users spend more time on their phones when compared to iOS users. What if everyone spent 3 hours per day on their phones? (`time` = {3, 3,..., 3}, `os` = {Android, Android, .... iOS})
+
+
+- We want to understand, if birth height and weight are positively associated in babies. What if every baby was 7.5 lbs? (`weight` = {7.5, 7.5,..., 7.5}, `height` = {20, 22,..., 18})
+
+##
+
+In all these fake scenarios there would be no **variance** in `sleep`, `graduate`, `time`, `weight`. These variables would all be constants thus would not even be a **vari**able.
+
+:::{.font50}
+
+Things vary. We use statistics in research studies to understand **how** variables vary and often we want to know **how** they **covary** with other variables. 
+
+:::
+
+##
+
+To make the connection between research questions of studies and statistics, we will take small steps and begin with writing research questions using notation.
+
+##
+
+`r fontawesome::fa(name = "search", fill = "#e56646")` **Research Question** Do UCI students sleep on average 8 hours on a typical night? 
+
+
+. . .
+
+`r fontawesome::fa(name = "table", fill = "#e56646")` **Variable** `sleep` (8,7,9,7.5, ...)
+
+. . .
+
+`r fontawesome::fa(name = "language", fill = "#e56646")` **Research Question Using Notation** $\mu \stackrel{?}{=} 8$
+
+
+. . .
+
+The parameter we want to infer about is **a single mean**.
+
+##
+
+::: {.callout-tip }
+
+If you want to type math notation correctly on Gradescope or Quarto out correctly as $\mu$ then you can write 
+
+```{r eval = FALSE}
+$$\mu$$
+```
+
+The double dollar signs at the beginning and at the end let Gradescope know that you are writing a math equation.
+
+:::
+
+##
+
+`r fontawesome::fa(name = "search", fill = "#e56646")` **Research Question** Do the majority of Americans approve allowing DACA immigrants to become citizens?
+
+. . .
+
+`r fontawesome::fa(name = "table", fill = "#e56646")` **Variable** `approve` (yes, yes, yes, no, yes, no, no)
+
+. . .
+
+`r fontawesome::fa(name = "language", fill = "#e56646")` **Research Question Using Notation** $\pi \stackrel{?}{>} 0.5$ 
+
+. . .
+
+The parameter we want to infer about is **a single proportion**.
+
+##
+
+`r fontawesome::fa(name = "search", fill = "#e56646")` **Research Question** Is California March 2020 unemployment rate different than US March 2020 unemployment rate which is at 4.4%?
+
+. . .
+
+`r fontawesome::fa(name = "table", fill = "#e56646")` **Variable** `unemployed_CA` (no, no, yes, no, yes, no, no...)
+
+. . .
+
+`r fontawesome::fa(name = "language", fill = "#e56646")` **Research Question Using Notation** $\pi \stackrel{?}{=} 0.044$
+
+. . .
+
+
+The parameter we want to infer about is **a single proportion**.
+
+## 
+
+`r fontawesome::fa(name = "search", fill = "#e56646")` **Research Question** Are there more STEM majors at UCI than non-STEM majors?
+
+. . .
+
+`r fontawesome::fa(name = "table", fill = "#e56646")` **Variable** `STEM` (TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE...)
+
+. . .
+
+`r fontawesome::fa(name = "language", fill = "#e56646")` **Research Question Using Notation** $\pi_{STEM} \stackrel{?}{>} 0.5$
+
+
+. . .
+
+The parameter we want to infer about is **a single proportion**.
+
+##
+
+`r fontawesome::fa(name = "search", fill = "#e56646")` **RQ** Do STEM (s) majors have higher or lower (different) income after graduation when compared to non-STEM (n) majors?
+
+. . .
+
+`r fontawesome::fa(name = "table", fill = "#e56646")` **Variables** explanatory: `STEM` (TRUE, FALSE, FALSE, TRUE,...)  
+response: `income`(40000, 20000, 65490, 115000,...)
+
+. . .
+
+`r fontawesome::fa(name = "language", fill = "#e56646")` **Research Question Using Notation** $\mu_{s} \stackrel{?}{=} \mu_{n}$ or $\mu_{s} - \mu_{n}  \stackrel{?}{=}0$ 
+
+. . .
+
+We want to infer about **difference of two means**.
+
+##
+
+`r fontawesome::fa(name = "search", fill = "#e56646")` **RQ** Do Democrats and Republicans approve legal abortion at same rates?
+
+. . .
+
+`r fontawesome::fa(name = "table", fill = "#e56646")` **Variables** explanatory: `party` (D, D, R, R,...)  
+response: `approve`(TRUE, FALSE, FALSE, TRUE,...)
+
+. . .
+
+`r fontawesome::fa(name = "language", fill = "#e56646")` **Research Question Using Notation** $\pi_{d} \stackrel{?}{=} \pi_{r}$ or $\pi_{d} -  \pi_{r} \stackrel{?}{=}0$ 
+
+
+. . .
+
+We want to infer about **difference of two proportions**.
+
+
+##
+
+
+<div align="center">
+
+|                               | Parameter of Interest | Response              |Explanatory            |
+|-------------------------------|-----------------------|-----------------------|-----------------------|
+| Single Mean                   | $\mu$                 | Numeric               |
+| Difference of Two Means       | $\mu_1 - \mu_2$       | Numeric               |Binary                 |
+| Single Proportion             | $\pi$                 | Binary                |
+| Difference of Two Proportions | $\pi_1 - \pi_2$       | Binary                |Binary                 |
+
+
+A categorical variable with two levels is called a __binary__ variable.
+
+##
+
+Later on we will also learn
+
+<div align = "center">
+
+| Parameter of Interest | Response              |Explanatory                |
+|-----------------------|-----------------------|-----------------------    |
+| $\beta_1$             | Numeric               | Categorical and/or Numeric|
+

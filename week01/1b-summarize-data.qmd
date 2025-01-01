@@ -1,0 +1,904 @@
+---
+title: "Summarizing Data"
+author: "Dr. Mine Dogucu"
+execute:
+  echo: true
+format: 
+  revealjs:
+    footer: "[stats4cs.com](https://stats4cs.com)"
+    slide-number: true
+    incremental: true
+    theme: ["../templates/slide-style.scss"]
+    logo: "https://www.stats4cs.com/img/logo.png"
+    title-slide-attributes: 
+      data-background-image: "https://www.stats4cs.com/img/logo.png"
+      data-background-size: 5%
+      data-background-position: 50% 85%
+    include-after-body: "../templates/clean_title_page.html"
+---
+
+```{r}
+#| echo: false
+#| message: false
+library(bayesrules)
+library(tidyverse)
+library(emojifont)
+library(fGarch)
+library(gganimate)
+theme_set(theme_gray(base_size = 22))
+
+data(hotel_bookings)
+
+```
+
+
+# Summarizing Data with Numbers
+
+
+We will only summarize a single variable at a time but later we will talk about relationship between two variables.
+
+## Summarizing Categorical Data
+
+Categorical data are often summarized with a frequency table. __Counts__ or __proportions__ are used to summarize categorical variables. 
+
+<table align = "center">
+<thead>
+  <th> </th>
+  <th>TRUE </th>
+  <th> FALSE </th>
+  <th> Total Count </th>
+
+</thead>
+
+<tr>
+<td>fruity </td>
+<td> 47</td>
+<td> 38</td>
+<td> 85</td>
+
+
+</tr>
+
+</table>
+
+<br>
+
+<table align = "center" >
+<thead>
+  <th> </th>
+  <th>TRUE </th>
+  <th> FALSE </th>
+  <th> Total Proportion </th>
+
+</thead>
+
+<tr>
+<td>fruity </td>
+<td> 0.5529412</td>
+<td> 0.4470588</td>
+<td> 1</td>
+
+</tr>
+</table>
+
+## Summarizing Numerical Data
+
+Consider the following data which represents the number of hours slept for 10 people who were surveyed.
+
+<table>
+
+<tr>
+
+<td> 7 </td>
+<td> 7.5 </td>
+<td> 8 </td>
+<td> 5.5 </td>
+<td> 10 </td>
+<td> 7.2 </td>
+<td> 7 </td>
+<td> 8 </td>
+<td> 9 </td>
+<td> 8 </td>
+
+
+</tr>
+
+
+
+
+</table>
+
+## Mean
+
+$$\bar x = \frac{7+7.5+8+5.5+10+7.2+7+8+9+8}{10} = 7.72$$
+
+The mean is calculated by summing the observed values and then dividing by the number of observations.
+
+
+$$\bar x = \frac{x_1 + x_2+.... x_n}{n}$$
+
+
+where $\bar x$ represents the mean of observed values, $x_1$, $x_2$, ... $x_n$ represent the n observed values.
+
+## Median
+
+If all the observations are listed from smallest to largest (or vice versa), the median is the observation that is in the middle. 
+
+<table>
+
+<tr>
+
+<td> 5.5 </td>
+<td> 7 </td>
+<td> 7 </td>
+<td> 7.2 </td>
+<td> 7.5 </td>
+<td> 8 </td>
+<td> 8 </td>
+<td> 8 </td>
+<td> 9 </td>
+<td> 10 </td>
+
+
+</tr>
+
+
+</table>
+
+In this case, we have two numbers in the middle 7.5 and 8. The average of these numbers would be the median. In this case, the median is 7.75. 
+
+$$\frac{7.5 + 8}{2} = 7.75$$
+
+
+## Q1, Q3, and Interquartile Range
+
+You can divide the (ordered) data into four. The median splits the data in half, in other words 50% of the data fall below the median. 
+
+**First quartile (Q1)** is the point at which 25% of the data fall below of. Third quartile (Q3) is the point at which 75% of the data fall below of.
+
+Q1 and Q3 can be considered 25th and 75th percentiles respectively. **Interquartile Range (IQR)** = Q3 - Q1 which represents the middle 50% of the data.
+
+## Quantiles / Percentiles / Quartiles
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-7rfc{border-color:inherit;font-family:Arial, Helvetica, sans-serif !important;;font-size:28px;text-align:left;
+  vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-7rfc">Quantile</th>
+    <th class="tg-7rfc">Percentile</th>
+    <th class="tg-7rfc">Special Name</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-7rfc">0.25</td>
+    <td class="tg-7rfc">25th</td>
+    <td class="tg-7rfc">First quartile</td>
+  </tr>
+  <tr>
+    <td class="tg-7rfc">0.5</td>
+    <td class="tg-7rfc">50th</td>
+    <td class="tg-7rfc">Median</td>
+  </tr>
+  <tr>
+    <td class="tg-7rfc">0.75</td>
+    <td class="tg-7rfc">75th</td>
+    <td class="tg-7rfc">Third quartile</td>
+  </tr>
+</tbody>
+</table>
+
+
+## Standard deviation and Variance
+
+
+Let's take a detour. Consider Dr. Dogucu teaching three classes. All of these classes have 5 students. Below are midterm results from these classes. 
+
+Class 1: 80 80 80 80 80  
+Class 2: 76 78 80 82 84  
+Class 3: 60 70 80 90 100  
+
+
+What do you notice about midterm results?
+
+## 
+
+All of these classes have an average of 80 points. But the data differ! In order to explain how these are different we examine how far off each observed value is from the mean on average. In class 1 all students are at the mean value so there is no variance. Class 2 students deviate from the mean slightly on average. Class 3 has the highest deviation from the mean on average. 
+
+## Standard deviation and Variance {.smaller}
+
+
+<table align = "center">
+<thead>
+
+<th> $x_i$ </th> <th>  $x_i - \bar{x}$ </th> <th>  $(x_i - \bar{x})^2$ </th>
+</thead>
+
+<tr> 
+<td>5.5 </td> <td> 5.5-7.72 = -2.22 hr</td> <td> (-2.2 hr)<sup>2</sup> = 4.9284 hr <sup>2</sup> </td>
+</tr>
+
+<tr> 
+<td>7 </td> <td> 7-7.72 = -0.72 hr</td> <td> (-0.72 hr)<sup>2</sup> = 0.5184 hr <sup>2</sup></td>
+</tr>
+
+<tr> 
+<td>7 </td> <td> 7-7.72 = -0.72 hr</td> <td> (-0.72 hr)<sup>2</sup> = 0.5184 hr <sup>2</sup></td>
+</tr>
+
+<tr> 
+<td>7.2 </td> <td> 7.2-7.72 = -0.52 hr</td> <td> (-0.52 hr)<sup>2</sup> = 0.2704 hr <sup>2</sup></td>
+</tr>
+
+<tr> 
+<td>7.5 </td> <td> 7.5-7.72 = -0.22 hr</td> <td> (-0.22 hr)<sup>2</sup> = 0.0484 hr <sup>2</sup></td>
+</tr>
+
+<tr> 
+<td>8 </td> <td> 8-7.72 = 0.28 hr</td> <td> (0.28 hr)<sup>2</sup> = 0.0784 hr <sup>2</sup></td>
+</tr>
+
+<tr> 
+<td>8 </td>  <td> 8-7.72 = 0.28 hr</td> <td> (0.28 hr)<sup>2</sup> = 0.0784 hr <sup>2</sup></td>
+</tr>
+
+<tr> 
+<td>8 </td> <td> 8-7.72 = 0.28 hr</td> <td> (0.28 hr)<sup>2</sup> = 0.0784 hr <sup>2</sup></td>
+</tr>
+
+<tr> 
+<td>9 </td> <td> 9-7.72 = 1.28 hr</td> <td> (1.28 hr)<sup>2</sup> = 1.6384 hr <sup>2</sup></td>
+</tr>
+
+<tr> 
+<td>10 </td> <td> 10-7.72 = 2.28 hr</td> <td> (2.28 hr)<sup>2</sup> = 5.1984 hr <sup>2</sup></td>
+</tr>
+
+</table>
+
+## Total squared distance from the mean
+
+
+$\Sigma_{i = 1}^{n} (x_i - \bar x )^2 =$
+
+$4.9284 + 0.5184 + 0.5184 + 0.2704 + 0.0484 +$ 
+$0.0784 + 0.0784 + 0.0784+ 1.6384 + 5.1984 = 13.356 \text{ hr}^2$
+
+Note that $n$ represents the number of observations which means $n = 10$.
+
+## Sample variance
+
+
+$$s^2 = \frac{\Sigma_{i = 1}^{n} (x_i - \bar x )^2}{n-1}$$ 
+
+
+
+<br>
+
+$$s^2= \frac{13.356}{10-1} = 1.484\text{ hr}^2$$
+
+
+## Sample standard deviation
+
+
+$$s = \sqrt{\frac{\Sigma_{i = 1}^{n} (x_i - \bar x )^2}{n-1}}$$
+
+
+<br>
+
+$$s= \sqrt{1.484} = 1.218195 \text{ hr}$$
+
+
+# Summarizing Data with Numbers in R
+
+## Data
+
+```{r}
+glimpse(hotel_bookings)
+```
+
+## Data 
+
+```{r}
+#| echo: false
+hotel_bookings %>% 
+  select(is_canceled, lead_time) 
+```
+
+`is_canceled` whether the booking was cancelled (0 = FALSE (i.e., not canceled), 1 = TRUE (i.e., canceled))   
+`lead_time` number of days between booking and arrival
+
+## Summarizing Categorical Data in R
+
+```{r}
+count(hotel_bookings, is_canceled)
+```
+```{r}
+#| echo: false
+count_summary <- count(hotel_bookings, is_canceled)
+```
+
+There are `r count_summary [2, 2]` people who canceled their booking and `r count_summary [1, 2]` who did not. 
+
+
+## Summarizing Categorical Data in R
+
+
+There are total `r nrow(hotel_bookings)` bookings. We can use this to calculate the proportions
+
+$\frac{`r count_summary [2, 2]`}{`r nrow(hotel_bookings)`}$
+
+$\frac{`r count_summary [1, 2]`}{`r nrow(hotel_bookings)`}$
+
+
+## Mean in R
+
+```{r}
+summarize(hotel_bookings, mean(lead_time))
+```
+
+
+## Median in R
+
+```{r}
+summarize(hotel_bookings, median(lead_time))
+```
+
+## Quartiles
+
+You can specify quartiles (Q3)
+
+```{r}
+summarize(hotel_bookings, quantile(lead_time, 0.75))
+```
+
+
+## Standard Deviation and Variance
+
+```{r}
+summarize(hotel_bookings, sd(lead_time))
+```
+
+```{r}
+summarize(hotel_bookings, var(lead_time))
+```
+
+# Summarizing Data with Visuals 
+
+## Bar plot with counts
+
+```{r}
+#| echo: false
+#| fig-align: center
+ggplot(hotel_bookings) +
+  aes(x = is_canceled) +
+  geom_bar() +
+  theme_minimal(base_size = 22)
+```
+
+---
+
+## Bar plot with proportions
+
+```{r}
+#| echo: false
+#| fig-align: center
+ggplot(hotel_bookings) +
+  aes(x = is_canceled, y = ..prop.., group = 1) +
+  geom_bar() +
+  theme_minimal(base_size = 22)
+```
+
+
+---
+
+## Histogram
+
+```{r}
+#| echo: false
+#| fig-align: center
+ggplot(hotel_bookings, aes(x = lead_time)) +
+  geom_histogram(binwidth = 3)   +
+  theme_minimal(base_size = 22)
+```
+
+---
+
+## Fun fact 
+
+__histo__ comes from the Greek word _histos_ that literally means "anything set up right".
+
+__gram__: comes from the Greek word _gramma_ which means "that which is drawn". [^1]
+
+
+[^1]: Online Etymology Dictionary
+
+##
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig.height: 6
+#| cache: true
+set.seed(12345)
+
+symmetric <- rnorm(n = 10000, mean = 0, sd = 1)
+
+right_skewed <- rsnorm(n = 10000, mean = 0, sd = 1, xi = 20)
+
+left_skewed <- rsnorm(n = 10000, mean = 0, sd = 1, xi = -20)
+
+type <- c(
+  rep("left-skewed", 10000),
+  rep("symmetric", 10000),
+  rep("right-skewed", 10000)
+)
+
+x <- c(left_skewed,
+       symmetric,
+       right_skewed)
+
+data <- tibble(x = x,
+                  type = type)
+
+```
+
+::::{.columns}
+
+:::{.column width="50%"}
+
+```{r}
+#| echo: false
+data %>% 
+  filter(type == "left-skewed") %>% 
+  ggplot(aes(x = x)) +
+  geom_histogram() +
+  labs(title = "Left skewed") +
+  theme_classic(base_size = 22) 
+```
+
+:::
+
+:::{.column width="50%"}
+
+```{r}
+#| echo: false
+data %>% 
+  filter(type == "symmetric") %>% 
+  ggplot(aes(x = x)) +
+  geom_histogram() +
+  labs(title = "Symmetric") +
+  theme_classic(base_size = 22)
+```
+:::
+
+:::{.column width="50%"}
+
+```{r}
+#| echo: false
+data %>% 
+  filter(type == "right-skewed") %>% 
+  ggplot(aes(x = x)) +
+  geom_histogram() +
+  labs(title = "Right skewed") +
+  theme_classic(base_size = 22)
+```
+
+:::
+
+::::
+
+
+## Histogram
+
+Consider the height distribution in our class.
+
+- How would the distribution change if Michael Jordan (198.1 cm, 6' 6'') were to join our class?
+
+- How would the distribution change if Tyrion Lannister (Peter Dinklage)  (135 cm, 4' 5'') were to join our class?
+
+
+
+## Note
+
+When data display a skewed distribution we rely on median rather than the mean to understand the center of the distribution.
+
+[Exploring Histograms Visually](https://tinlizzie.org/histograms/)
+
+# Boxplot
+
+```{r}
+#| echo: false
+#| fig-align: center
+ggplot(hotel_bookings,
+       aes(y = lead_time)) + 
+  scale_x_discrete( ) +
+  geom_boxplot() + 
+  labs(y = "Lead Time") +
+  theme_classic(base_size = 22) 
+```
+
+## Median
+
+```{r}
+#| echo: false
+#| fig-align: center
+
+median_lead <- median(hotel_bookings$lead_time)
+
+quartiles <- summarize(hotel_bookings, value= quantile(lead_time, c(0.25, 0.50, 0.75, 1)))
+
+q1 <- quartiles[1,1] %>% 
+  pull()
+q3 <- quartiles[3,1] %>% 
+  pull()
+
+iqr = q3 - q1
+min_lead <- min(hotel_bookings$lead_time)
+  
+
+ggplot(hotel_bookings,
+       aes(y = lead_time)) + 
+  scale_x_discrete( ) +
+  geom_boxplot() + 
+  labs(y = "Lead Time",
+       x = "") +
+  theme_classic(base_size = 22) +
+  annotate(geom = "segment",
+           x = 0.8, y = median_lead, 
+           xend = 0.4, yend = median_lead, 
+           color = "#BA4A00",
+           arrow = arrow(type = "closed")) +
+  annotate(geom = "text",
+           x = 0.8, y = median_lead,
+           label = "median ",
+           hjust = "left", color = "#BA4A00",
+           size = 12)
+```
+
+
+## First and Third Quartiles (Q1 and Q3)
+
+```{r}
+#| echo: false
+#| fig-align: center
+
+
+ggplot(hotel_bookings,
+       aes(y = lead_time)) + 
+  scale_x_discrete( ) +
+  geom_boxplot() + 
+  labs(y = "Lead Time",
+       x = "") +
+  theme_classic(base_size = 22) +
+  annotate(geom = "segment",
+           x = 0.8, y = q1, 
+           xend = 0.4, yend = q1, 
+           color = "#BA4A00",
+           arrow = arrow(type = "closed")) +
+  annotate(geom = "text",
+           x = 0.8, y = q1,
+           label =  "Q1",
+           hjust = "left", color = "#BA4A00",
+           size = 10) +
+  annotate(geom = "segment",
+           x = 0.8, y = q3, 
+           xend = 0.4, yend = q3, 
+           color = "#BA4A00",
+           arrow = arrow(type = "closed")) +
+  annotate(geom = "text",
+           x = 0.8, y = q3,
+           label = "Q3",
+           hjust = "left", color = "#BA4A00",
+           size = 10) 
+
+```
+
+## Interquartile Range (IQR)
+
+```{r}
+#| echo: false
+#| fig-align: center
+quartiles <- summarize(hotel_bookings, value= quantile(lead_time, c(0.25, 0.50, 0.75, 1)))
+
+q1 <- quartiles[1,1] %>% 
+  pull()
+q3 <- quartiles[3,1] %>% 
+  pull()
+
+ggplot(hotel_bookings,
+       aes(y = lead_time)) + 
+  scale_x_discrete( ) +
+  geom_boxplot() + 
+  labs(y = "Lead Time",
+       x = "") +
+  theme_classic(base_size = 22) +
+  annotate(geom = "segment",
+           x = 0.5, y = q1, 
+           xend = 0.5, yend = q3, 
+           color = "#BA4A00") +
+  annotate(geom = "text",
+           x = 0.5, y = iqr/2,
+           label =  "IQR",
+           hjust = "left", color = "#BA4A00",
+           size = 10) 
+
+```
+
+## Whiskers
+
+```{r}
+#| echo: false
+#| fig-align: center
+
+
+ggplot(hotel_bookings,
+       aes(y = lead_time)) + 
+  scale_x_discrete( ) +
+  geom_boxplot() + 
+  labs(y = "Lead Time",
+       x = "") +
+  theme_classic(base_size = 22) +
+  annotate(geom = "segment",
+           x = -0.2, y = (q3 + 1.5*iqr), 
+           xend = 0.2, yend = (q3 + 1.5*iqr), 
+           color = "#BA4A00") +
+  annotate(geom = "text",
+           x = 0.4, y = (q3 + 1.5*iqr),
+           label =  "Whiskers",
+           hjust = "left", color = "#BA4A00",
+           size = 8) +
+  annotate(geom = "segment",
+           x = -0.2, y = min_lead, 
+           xend = 0.2, yend = min_lead, 
+           color = "#BA4A00") +
+  annotate(geom = "text",
+           x = 0.4, y = min_lead,
+           label = "Whiskers",
+           hjust = "left", color = "#BA4A00",
+           size = 8) 
+
+```
+
+
+## 
+
+```{r}
+#| echo: false
+#| fig-align: center
+ggplot(hotel_bookings,
+       aes(y = lead_time)) + 
+  scale_x_discrete( ) +
+  geom_boxplot() + 
+  labs(y = "Lead Time",
+       x = "") +
+  theme_classic(base_size = 22) +
+  annotate(geom = "segment",
+           x = -0.2, y = (q3 + 1.5*iqr), 
+           xend = 0.2, yend = (q3 + 1.5*iqr), 
+           color = "#BA4A00") +
+  annotate(geom = "text",
+           x = 0.4, y = (q3 + 1.5*iqr),
+           label =  "Maximum Possible \nReach of whiskers",
+           hjust = "left", color = "#BA4A00",
+           size = 8) +
+  annotate(geom = "segment",
+           x = -0.2, y = (q1 - 1.5*iqr), 
+           xend = 0.2, yend = (q1 - 1.5*iqr) , 
+           color = "#BA4A00") +
+  annotate(geom = "text",
+           x = 0.4, y = (q1 - 1.5*iqr),
+           label = "Minimum Possible \nReach of whiskers",
+           hjust = "left", color = "#BA4A00",
+           size = 8) +
+  ylim(-300, 450)
+
+```
+
+## 
+
+Whiskers can go as high as Q3 + 1.5 IQR and as low as Q1 - 1.5 IQR. In this instance, we see that whiskers have reached its maximum value, however, since there is no observed data below 0 lead time, the lower whisker is at 0. 
+We can suspect any observed value greater than the maximum reach of whiskers or any observed value less than the minimum reach of whiskers as **outliers**.
+
+## Outliers
+
+```{r}
+#| echo: false
+#| fig-align: center
+
+
+ggplot(hotel_bookings,
+       aes(y = lead_time)) + 
+  scale_x_discrete( ) +
+  geom_boxplot() + 
+  labs(y = "Lead Time",
+       x = "") +
+  theme_classic(base_size = 22) +
+  annotate(geom = "text",
+           x = 0.1, y = (q3 + 2*iqr),
+           label =  "Potential Outliers",
+           hjust = "left", color = "#BA4A00",
+           size = 8) 
+
+```
+
+
+
+
+## Meet Palmer Penguins[^1]
+
+
+
+```{r}
+#| echo: false
+#| fig-align: center
+knitr::include_graphics("img/penguins.png")
+```
+
+
+[^1]: Penguin artworks by @allison_horst.
+
+##
+
+```{r}
+#| echo: false
+#| fig-align: center
+knitr::include_graphics("img/penguin_bill.png")
+```
+
+## Data
+
+```{r}
+#| echo: false
+library(palmerpenguins)
+```
+
+```{r}
+glimpse(penguins)
+```
+
+
+## 
+
+```{r}
+#| echo: false
+#| fig-align: center
+ggplot(penguins, aes(x = species, y = bill_length_mm)) +
+  geom_boxplot() +
+  theme_minimal(base_size = 22) +
+  labs(x = "Species",
+       y = "Bill Length (mm)")
+```
+
+What can you conclude from this plot?
+
+## Scatterplot
+
+```{r}
+#| echo: false
+#| fig-align: center
+ggplot(penguins, aes(x = body_mass_g,
+                     y = bill_length_mm)) +
+  geom_point() +
+  labs(x = "Body mass (g)",
+       y = "Bill length (mm)") +
+  theme_minimal(base_size = 22)
+```
+
+What can you conclude from this plot?
+
+
+## Scatterplot
+
+::::{.columns}
+
+:::{.column width="70%"}
+```{r}
+#| echo: false
+#| fig-align: center
+ggplot(penguins, aes(x = body_mass_g,
+                     y = bill_length_mm,
+                     color = species)) +
+  geom_point() +
+  labs(x = "Body mass (g)",
+       y = "Bill length (mm)") +
+  theme_minimal(base_size = 22)
+```
+:::
+
+:::{.column width="30%"}
+
+- What can you conclude from this plot? 
+- How many variables are represented in this plot? 
+- Are they numeric or categorical?
+:::
+
+::::
+
+# Summarizing Data with Visuals in R
+
+##
+
+1. Pick your data frame
+2. Pick variables for the axes (or other aesthetics)
+3. Specify the geom (i.e., plot type)
+
+##
+
+```{r}
+#| fig-align: center
+#| output-location: column
+ggplot(hotel_bookings)
+```
+
+##
+
+```{r}
+#| fig-align: center
+#| output-location: column
+ggplot(hotel_bookings, 
+       aes(x = lead_time))
+```
+
+##
+
+```{r}
+#| fig-align: center
+#| output-location: column
+ggplot(hotel_bookings, 
+       aes(x = lead_time)) +
+  geom_histogram()
+```
+
+
+## Box plot
+
+```{r}
+#| fig-align: center
+#| output-location: column
+#| code-line-numbers: "|1|2|3"
+ggplot(penguins, 
+       aes(x = species, 
+           y = bill_length_mm)) +
+  geom_boxplot()
+```
+
+## Scatter plot
+
+```{r}
+#| fig-align: center
+#| output-location: column
+#| code-line-numbers: "|1|2|3|4"
+ggplot(penguins, 
+       aes(x = body_mass_g, 
+           y = bill_length_mm)) +
+  geom_point()
+```
+
+## Scatter plot
+
+```{r}
+#| fig-align: center
+#| output-location: column
+#| code-line-numbers: "4"
+ggplot(penguins, 
+       aes(x = body_mass_g, 
+           y = bill_length_mm,
+           color = species)) +
+  geom_point()
+```
+
+
+## Learning Tip of the Day
+
+[Does time management work? A meta-analysis](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0245066)
+
