@@ -63,7 +63,7 @@ Find a difference.
 The most important thing about this course
 :::
 
-[The course website](https://stats4cs.com)
+[The course website](https://mdogucu.github.io/stats67b-wi25-website/)
 
 ## Poll Everywhere
 
