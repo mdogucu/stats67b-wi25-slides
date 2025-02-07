@@ -434,11 +434,12 @@ We want to infer about **difference of two proportions**.
 | Difference of Two Means       | $\mu_1 - \mu_2$       | Numeric               |Binary                 |
 | Single Proportion             | $\pi$                 | Binary                |
 | Difference of Two Proportions | $\pi_1 - \pi_2$       | Binary                |Binary                 |
-
+</div>
 
 A categorical variable with two levels is called a __binary__ variable.
 
-##
+
+## 
 
 Later on we will also learn
 
@@ -448,7 +449,7 @@ Later on we will also learn
 |-----------------------|-----------------------|-----------------------    |
 | $\beta_1$             | Numeric               | Categorical and/or Numeric|
 
-
+</div>
 
 # Central Limit Theorem
 
@@ -520,10 +521,11 @@ Let's assume we went ahead and took a (random) sample of LAPD staff and asked th
 Let's pretend we have never seen the data and we do not know the population parameter $\mu$. In fact this is usually what happens in real life. We do not have the population information but we do want to know a population __parameter__ (does not necessarily have to be the mean).
 
 . . .
+
 If we took a sample and calculated the sample mean, we would name this __point estimate__ of the parameter. 
 
 
-
+##
 
 |                               | Parameter of Interest | Point Estimate / Sample Statistic |
 |-------------------------------|-----------------------|-----------------------------------|
