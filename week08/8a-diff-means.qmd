@@ -203,15 +203,15 @@ $H_A: \mu_1-\mu_2 \neq 0$
 
 $(\bar x_1 - \bar x_2) \sim \text{approximately }N(\text{mean} = \mu_1 - \mu_2, \text{sd} = \sqrt{\frac{\sigma_1^2}{n_1}+ \frac{\sigma_2^2}{n_2}})$ 
 
-If the null hypothesis is true then the sampling distribution will be approximately normal
+If the null hypothesis is true then the sampling distribution will be approximately normal. However, we do not know the standard deviations ($\sigma_1$) and ($\sigma_2$) in this normal distribution we will instead use $s_1$ and $s_2$ when calculating the standard error and use a $t$ distribution instead. 
 
-$N(\text{mean} = 0, \text{sd} = \sqrt{\frac{0.57^2}{20}+\frac{0.29^2}{20}})$
+$se = \sqrt{\frac{0.57^2}{20}+\frac{0.29^2}{20}}$
 
-$N(\text{mean} = 0, \text{sd} = 0.14)$
+$se = 0.14$
 
 ##
 
-Where does the point estimate fall on the sampling distribution?
+Where does the point estimate fall?
 
 $\frac{(3.18-3.07)-0}{0.14} = 0.79$
 

@@ -526,13 +526,13 @@ $\bar x \sim \text{approximately } N(mean = \mu, sd =\frac{\sigma}{\sqrt{n}})$
 
 . . .
 
-We will assume $H_0$ is true
+We will assume $H_0$ is true and since we do not know the standard deviation ($\sigma$) in this normal distribution we will instead use $s$ when calculating the standard error and use a $t$ distribution instead. 
 
-$\bar x \sim \text{approximately } N( \text{mean} = 40,  \frac{12.91513}{\sqrt{843}})$
+$se = \frac{12.91513}{\sqrt{843}}$
 
 . . .
 
-$\bar x \sim \text{approximately } N(40, \text{sd} = 0.4448207)$
+$se = 0.4448207$
 
 
 ## Step 3: Calculate p-value  
