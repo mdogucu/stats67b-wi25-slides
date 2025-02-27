@@ -655,11 +655,12 @@ Error/Residual
 <p>95% CI for the slope = point estimate of the slope <span class="math inline">\(\pm\)</span> critical value <span class="math inline">\(\times\)</span> standard error of the slope</p>
 <p>Critical value</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">1235</span>) <span class="co"># recall n = 1236</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">1234</span>) <span class="co"># recall n = 1236 so df = n - 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.961887</code></pre>
+<pre><code>[1] 1.961888</code></pre>
 </div>
 </div>
+<p>The degrees of freedom is total sample size minus the number of parameters (<span class="math inline">\(\beta_0, \beta_1\)</span>).</p>
 </section>
 <section id="inference-confidence-interval-1" class="slide level2">
 <h2>Inference: Confidence Interval</h2>
@@ -673,7 +674,7 @@ Error/Residual
 2 gestation      0.464    0.0297     15.6  3.22e-50</code></pre>
 </div>
 </div>
-<p>95% CI = 0.4642626 <span class="math inline">\(\pm\)</span> 1.9618867 <span class="math inline">\(\times\)</span> 0.0297437</p>
+<p>95% CI = 0.4642626 <span class="math inline">\(\pm\)</span> 1.9618883 <span class="math inline">\(\times\)</span> 0.0297437</p>
 <p>95% CI = (0.4059089, 0.5226163)</p>
 </section>
 <section id="inference-confidence-interval-2" class="slide level2">

@@ -552,11 +552,14 @@ CI = point estimate $\pm$ critical value $\times$ standard error
 Critical value 
 
 ```{r}
-qt(0.975, df = 1235) # recall n = 1236
+qt(0.975, df = 1234) # recall n = 1236 so df = n - 2
 ```
+
+The degrees of freedom is total sample size minus the number of parameters ($\beta_0, \beta_1$).
+
 ```{r}
 #| echo: false
-cv <- qt(0.975, df = 1235) # recall n = 1236
+cv <- qt(0.975, df = 1234) # recall n = 1236 so df = n - 2
 ```
 
 ## Inference: Confidence Interval
