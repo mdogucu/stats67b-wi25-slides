@@ -201,6 +201,13 @@ babies |>
     
 ```
 
+## $R$ and $R^2$
+
+$R^2$ = `r glance(model_g)$r.squared`
+
+$b_1 = \frac{s_y}{s_x}R$
+
+$R$ is the correlation coefficient
 
 ##
 
