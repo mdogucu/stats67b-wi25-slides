@@ -205,7 +205,6 @@ Dr.&nbsp;Mine Dogucu
 </section>
 <section class="slide level2">
 
-<p>class: middle</p>
 
 <img data-src="img/prob-likelihood.jpeg" class="quarto-figure quarto-figure-center r-stretch" width="250"></section>
 <section id="section" class="slide level2">
@@ -224,7 +223,7 @@ Dr.&nbsp;Mine Dogucu
 <h2>Likelihood</h2>
 
 <img data-src="img/likelihood.jpeg" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"><div class="fragment">
-<p>If we observe a head what is the <strong>likelihood</strong> that <span class="math inline">\(\pi\)</span> is 0.5?</p>
+<p>If we observe a head what is the <strong>likelihood</strong> that this a fair coin, i.e., <span class="math inline">\(\pi\)</span> is 0.5?</p>
 </div>
 <div class="fragment">
 <p>We know that <span class="math inline">\(x = 1\)</span> and we would like to know <span class="math inline">\(L(\pi = 0.5 | x = 1)\)</span></p>
@@ -232,54 +231,77 @@ Dr.&nbsp;Mine Dogucu
 </section>
 <section id="probability" class="slide level2">
 <h2>Probability</h2>
-<p>Let <span class="math inline">\(X \sim \text{Binomial}(n = 2, \pi = 0.3)\)</span></p>
-<p>Let X be the number of spam emails received among two emails with a 0.3 probability of spam email.</p>
+<p>Let <span class="math inline">\(X \sim \text{Binomial}(n = 5, \pi = 0.2)\)</span></p>
+<p>Let X be the number of spam emails received among two emails with a 0.2 probability of spam email.</p>
+</section>
+<section id="f0" class="slide level2">
+<h2><span class="math inline">\(f(0)\)</span></h2>
+<p>What is the probability that none of the emails received is spam?</p>
 <div class="fragment">
-<p>What is the probability that one of the two emails received is spam?</p>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(P(X = 1)\)</span> =</p>
+<p><span class="math inline">\(P(X = 0)\)</span> =</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">prob =</span> <span class="fl">0.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">prob =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.42</code></pre>
+<pre><code>[1] 0.64</code></pre>
 </div>
 </div>
 </div>
 </section>
+<section id="f1" class="slide level2">
+<h2><span class="math inline">\(f(1)\)</span></h2>
+<p>What is the probability that one of the emails received is spam?</p>
+<div class="fragment">
+<p><span class="math inline">\(P(X = 1)\)</span> =</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">prob =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.32</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="fx" class="slide level2">
+<h2><span class="math inline">\(f(x)\)</span></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.32768 0.40960 0.20480 0.05120 0.00640 0.00032</code></pre>
+</div>
+</div>
+</section>
+<section id="fx-if-pi-0.2" class="slide level2">
+<h2>f(x) if <span class="math inline">\(\pi = 0.2\)</span></h2>
+
+<img data-src="9b-maximum-likelihood_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section id="fx-if-pi-0.2-or-pi-0.4-or-pi-0.8" class="slide level2">
+<h2><span class="math inline">\(f(x)\)</span> if <span class="math inline">\(\pi = 0.2\)</span> or <span class="math inline">\(\pi = 0.4\)</span> or <span class="math inline">\(\pi = 0.8\)</span></h2>
+
+<img data-src="9b-maximum-likelihood_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
 <section id="likelihood-1" class="slide level2">
 <h2>Likelihood</h2>
 <p>Let <span class="math inline">\(X \sim \text{Binomial}(n, \pi)\)</span></p>
-<p>There were 5 emails received and 3 of them turned out to be spam. What is the likelihood that <span class="math inline">\(\pi\)</span> is 0.1 (i.e.&nbsp;<span class="math inline">\(L(\pi = 0.1 | x = 3)\)</span>?</p>
+<p>There were 5 emails received and 3 of them turned out to be spam. What is the likelihood that <span class="math inline">\(\pi\)</span> is 0.2 (i.e.&nbsp;<span class="math inline">\(L(\pi = 0.2 | x = 3)\)</span>?</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.0081</code></pre>
+<pre><code>[1] 0.0512</code></pre>
 </div>
 </div>
 </div>
 </section>
 <section id="section-1" class="slide level2">
 <h2></h2>
-<p>What about <span class="math inline">\(L(\pi = 0.8 | x = 3)\)</span>?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.2048</code></pre>
-</div>
-</div>
-<div class="fragment">
-<hr>
-<p>What about <span class="math inline">\(L(\pi = 0.5 | x = 3)\)</span>?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.3125</code></pre>
-</div>
-</div>
-</div>
+<p>What about <span class="math inline">\(L(\pi = 0.4 | x = 3)\)</span> or <span class="math inline">\(L(\pi = 0.8 | x = 3)\)</span>?</p>
 </section>
+<section id="data" class="slide level2">
+<h2>Data</h2>
+
+<img data-src="9b-maximum-likelihood_files/figure-revealjs/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section id="likelihood-2" class="slide level2">
+<h2>Likelihood</h2>
+
+<img data-src="9b-maximum-likelihood_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
 <section id="section-2" class="slide level2">
 <h2></h2>
 <div class="pull-left">
@@ -344,21 +366,21 @@ Dr.&nbsp;Mine Dogucu
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="9b-maximum-likelihood_files/figure-revealjs/unnamed-chunk-9-1.png" width="960"></p>
+<p><img data-src="9b-maximum-likelihood_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="likelihood-2" class="slide level2">
+<section id="likelihood-3" class="slide level2">
 <h2>Likelihood</h2>
 <div class="pull-left">
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="9b-maximum-likelihood_files/figure-revealjs/unnamed-chunk-10-1.png" width="960"></p>
+<p><img data-src="9b-maximum-likelihood_files/figure-revealjs/unnamed-chunk-14-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -462,13 +484,21 @@ Dr.&nbsp;Mine Dogucu
 <p><span class="math inline">\(\frac{d}{d\pi}\ell(\pi) = \frac{\sum_{i=1}^nx_i}{\pi} - \frac{n-{\sum_{i=1}^nx_i}}{1-\pi}\)</span></p>
 </div>
 </section>
-<section id="step-4-set-the-first-derivative-equal-to-0-and-solve-for-p" class="slide level2">
-<h2>Step 4: Set the first derivative equal to 0 and solve for p</h2>
+<section id="step-4-set-the-first-derivative-equal-to-0-and-solve-for-pi" class="slide level2">
+<h2>Step 4: Set the first derivative equal to 0 and solve for <span class="math inline">\(\pi\)</span></h2>
 <div class="fragment">
 <p><span class="math inline">\(\frac{\sum_{i=1}^nx_i}{\pi} - \frac{n-{\sum_{i=1}^nx_i}}{1-\pi} = 0\)</span></p>
+</div>
+<div class="fragment">
 <p><span class="math inline">\(\frac{\sum_{i=1}^nx_i}{\pi} = \frac{n-{\sum_{i=1}^nx_i}}{1-\pi}\)</span></p>
+</div>
+<div class="fragment">
 <p><span class="math inline">\(\sum_{i=1}^nx_i -\pi \sum_{i=1}^nx_i= \pi n-\pi\sum_{i=1}^nx_i\)</span></p>
+</div>
+<div class="fragment">
 <p><span class="math inline">\(\sum_{i=1}^nx_i= \pi n\)</span></p>
+</div>
+<div class="fragment">
 <p><span class="math inline">\(\hat \pi = \frac{\sum_{i=1}^nx_i}{n}\)</span></p>
 </div>
 </section>

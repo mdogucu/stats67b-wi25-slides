@@ -22,8 +22,6 @@ library(tidyverse)
 theme_set(theme_gray(base_size = 18))
 ```
 
-class: middle 
-
 
 ```{r echo = FALSE, fig.align='center'}
 knitr::include_graphics("img/prob-likelihood.jpeg")
@@ -58,7 +56,7 @@ knitr::include_graphics("img/likelihood.jpeg")
 
 . . .
 
-If we observe a head what is the **likelihood** that $\pi$ is 0.5?
+If we observe a head what is the **likelihood** that this a fair coin, i.e., $\pi$ is 0.5?
 
 . . .
 
@@ -68,55 +66,134 @@ We know that $x = 1$ and we would like to know $L(\pi = 0.5 | x = 1)$
 
 ## Probability
 
-Let $X \sim \text{Binomial}(n = 2, \pi = 0.3)$
+Let $X \sim \text{Binomial}(n = 5, \pi = 0.2)$
 
-Let X be the number of spam emails received among two emails with a 0.3 probability of spam email.
+Let X be the number of spam emails received among two emails with a 0.2 probability of spam email.
+
+## $f(0)$
+
+What is the probability that none of the emails received is spam?
 
 . . .
 
-What is the probability that one of the two emails received is spam?
+$P(X = 0)$ =
+
+```{r}
+dbinom(x = 0, size = 2, prob = 0.2)
+```
+
+
+
+## $f(1)$
+
+What is the probability that one of the emails received is spam?
 
 . . .
 
 $P(X = 1)$ =
 
 ```{r}
-dbinom(x = 1, size = 2, prob = 0.3)
+dbinom(x = 1, size = 2, prob = 0.2)
 ```
 
+## $f(x)$
+
+```{r}
+dbinom(x = 0:5, size = 5, prob = 0.2)
+```
+
+## f(x) if $\pi = 0.2$
+
+```{r echo = FALSE, fig.align = 'center'}
+# Set up plot data
+n   <- 5
+pi  <- c(0.2, 0.4, 0.8)
+pis <- data.frame(setting = factor(rep(1:length(pi), each = (n + 1))),
+    x = rep(0:n, length(pi)),
+    pi = rep(pi, each = (n + 1)))
+pis <- pis %>% 
+    mutate(y = dbinom(x, size = n, prob = pi)) %>% 
+    mutate(x_observed = as.factor(x == 3))
+levels(pis$setting) <- paste0("Bin(",n,", ",pi,")")
+pis_1 <-pis %>% 
+  filter(pi == 0.2) 
+  
+ 
+ggplot(pis_1, aes(x = x, y = y)) + 
+    lims(x = c(0,n), y = c(0, 0.6)) + 
+    geom_point(size = 0.75) + 
+    geom_segment(data = pis_1, 
+                 aes(x = x, 
+                     y = rep(0,length(y)), 
+                     xend = x, 
+                     yend = y, 
+                     )) +
+    labs(x = "x", y = expression(paste("f(x|",pi,")"))) + 
+    scale_color_manual(values = c("black","red")) + 
+    theme(legend.position="none") 
+``` 
+
+
+## $f(x)$ if $\pi = 0.2$ or $\pi = 0.4$ or $\pi = 0.8$
+
+
+```{r echo = FALSE, fig.align = 'center'}
+ggplot(pis, aes(x = x, y = y)) + 
+    lims(x = c(0,n), y = c(0, max(pis$y))) + 
+    geom_point(size = 0.75) + 
+    facet_wrap(~ setting) + 
+    geom_segment(data = pis, aes(x = x, y = rep(0,length(y)), xend = x, yend = y)) +
+    labs(x = "x", y = expression(paste("f(x|",pi,")"))) + 
+    scale_color_manual(values = c("black","red")) + 
+    theme(legend.position="none") 
+```
 
 ## Likelihood
 
 Let $X \sim \text{Binomial}(n, \pi)$
 
-There were 5 emails received and 3 of them turned out to be spam. What is the likelihood that $\pi$ is 0.1 (i.e. $L(\pi = 0.1 | x = 3)$?
+There were 5 emails received and 3 of them turned out to be spam. What is the likelihood that $\pi$ is 0.2 (i.e. $L(\pi = 0.2 | x = 3)$?
 
 . . .
 
 ```{r}
-dbinom(x = 3, size = 5, prob = 0.1)
+dbinom(x = 3, size = 5, prob = 0.2)
 ```
 
 ##
 
-What about $L(\pi = 0.8 | x = 3)$?
+What about $L(\pi = 0.4 | x = 3)$ or  $L(\pi = 0.8 | x = 3)$? 
 
-```{r}
-dbinom(x = 3, size = 5, prob = 0.8)
+
+## Data
+
+```{r echo = FALSE, fig.align='center'}
+ggplot(pis, aes(x = x, y = y)) + 
+    lims(x = c(0,n), y = c(0, max(pis$y))) + 
+    geom_point(size = 0.75, aes(color = x_observed)) + 
+    facet_wrap(~ setting) + 
+    geom_segment(data = pis, aes(x = x, y = rep(0,length(y)), xend = x, yend = y, color = x_observed)) +
+    labs(x = "y", y = expression(paste("f(y|",pi,")"))) + 
+    scale_color_manual(values = c("black","red")) + 
+    theme(legend.position="none") 
 ```
 
-. . .
+## Likelihood
 
-<hr>
 
-What about $L(\pi = 0.5 | x = 3)$?
-
-```{r}
-dbinom(x = 3, size = 5, prob = 0.5)
+```{r echo = FALSE, fig.align='center'}
+just_3 <- pis %>% 
+  filter(x == 3)
+ggplot(just_3, aes(x = pi, y = y)) + 
+  geom_point(size = 0.75, aes(color = "red")) + 
+  geom_segment(data = just_3, aes(x = pi, y = rep(0,length(y)), xend = pi, yend = y, color = "red")) +
+  labs(x = expression(pi), y = expression(paste("L(",pi,"|(x=3))"))) + 
+  theme(legend.position="none") +
+  scale_x_continuous(breaks = c(0.2, 0.4, 0.8))
 ```
-
 
 ##
+
 
 :::{.pull-left}
 
@@ -305,17 +382,25 @@ $\frac{d}{d\pi}\ell(\pi) = \frac{\sum_{i=1}^nx_i}{\pi} - \frac{n-{\sum_{i=1}^nx_
 
 
 
-## Step 4: Set the first derivative equal to 0 and solve for p
+## Step 4: Set the first derivative equal to 0 and solve for $\pi$
 
 . . .
 
 $\frac{\sum_{i=1}^nx_i}{\pi} - \frac{n-{\sum_{i=1}^nx_i}}{1-\pi} = 0$
 
+. . .
+
 $\frac{\sum_{i=1}^nx_i}{\pi} = \frac{n-{\sum_{i=1}^nx_i}}{1-\pi}$
+
+. . .
 
 $\sum_{i=1}^nx_i -\pi \sum_{i=1}^nx_i= \pi n-\pi\sum_{i=1}^nx_i$
 
+. . .
+
 $\sum_{i=1}^nx_i= \pi n$
+
+. . .
 
 $\hat \pi = \frac{\sum_{i=1}^nx_i}{n}$
 
