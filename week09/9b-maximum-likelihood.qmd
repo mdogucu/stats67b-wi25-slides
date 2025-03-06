@@ -68,7 +68,7 @@ We know that $x = 1$ and we would like to know $L(\pi = 0.5 | x = 1)$
 
 Let $X \sim \text{Binomial}(n = 5, \pi = 0.2)$
 
-Let X be the number of spam emails received among two emails with a 0.2 probability of spam email.
+Let X be the number of spam emails received among five emails with a 0.2 probability of spam email.
 
 ## $f(0)$
 
@@ -79,7 +79,7 @@ What is the probability that none of the emails received is spam?
 $P(X = 0)$ =
 
 ```{r}
-dbinom(x = 0, size = 2, prob = 0.2)
+dbinom(x = 0, size = 5, prob = 0.2)
 ```
 
 
@@ -93,7 +93,7 @@ What is the probability that one of the emails received is spam?
 $P(X = 1)$ =
 
 ```{r}
-dbinom(x = 1, size = 2, prob = 0.2)
+dbinom(x = 1, size = 5, prob = 0.2)
 ```
 
 ## $f(x)$
@@ -429,7 +429,7 @@ and $n \geq\sum_{i=1}^nx_i$
 
 . . .
 
-$\pi^2 >0$ and $(1-\pi)^2 > 0$
+$\pi^2 \geq 0$ and $(1-\pi)^2 \geq 0$
 
 . . .
 

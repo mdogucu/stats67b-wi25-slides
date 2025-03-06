@@ -232,7 +232,7 @@ Dr.&nbsp;Mine Dogucu
 <section id="probability" class="slide level2">
 <h2>Probability</h2>
 <p>Let <span class="math inline">\(X \sim \text{Binomial}(n = 5, \pi = 0.2)\)</span></p>
-<p>Let X be the number of spam emails received among two emails with a 0.2 probability of spam email.</p>
+<p>Let X be the number of spam emails received among five emails with a 0.2 probability of spam email.</p>
 </section>
 <section id="f0" class="slide level2">
 <h2><span class="math inline">\(f(0)\)</span></h2>
@@ -240,9 +240,9 @@ Dr.&nbsp;Mine Dogucu
 <div class="fragment">
 <p><span class="math inline">\(P(X = 0)\)</span> =</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">prob =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.64</code></pre>
+<pre><code>[1] 0.32768</code></pre>
 </div>
 </div>
 </div>
@@ -253,9 +253,9 @@ Dr.&nbsp;Mine Dogucu
 <div class="fragment">
 <p><span class="math inline">\(P(X = 1)\)</span> =</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">prob =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.32</code></pre>
+<pre><code>[1] 0.4096</code></pre>
 </div>
 </div>
 </div>
@@ -518,7 +518,7 @@ Dr.&nbsp;Mine Dogucu
 <p>and <span class="math inline">\(n \geq\sum_{i=1}^nx_i\)</span></p>
 </div>
 <div class="fragment">
-<p><span class="math inline">\(\pi^2 &gt;0\)</span> and <span class="math inline">\((1-\pi)^2 &gt; 0\)</span></p>
+<p><span class="math inline">\(\pi^2 \geq 0\)</span> and <span class="math inline">\((1-\pi)^2 \geq 0\)</span></p>
 </div>
 <div class="fragment">
 <p><span class="math inline">\(-\frac{\sum_{i=1}^nx_i}{\pi^2} - \frac{n-{\sum_{i=1}^nx_i}}{(1-\pi)^2} &lt;0\)</span> <svg aria-hidden="true" role="img" viewbox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#e56646;overflow:visible;position:relative;"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg></p>
